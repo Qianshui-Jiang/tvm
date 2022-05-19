@@ -16,31 +16,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-set -e
-set -u
-set -o pipefail
+set -euo pipefail
+set -x
 
-# install libraries for python package on ubuntu
-pip3 install --upgrade \
-    attrs \
-    cloudpickle \
-    cython \
-    decorator \
-    mypy \
-    numpy~=1.19.5 \
-    orderedset \
-    packaging \
-    Pillow==9.1.0 \
-    psutil \
-    pytest \
-    tlcpack-sphinx-addon==0.2.1 \
-    pytest-profiling \
-    pytest-xdist \
-    requests \
-    scipy \
-    Jinja2 \
-    synr==0.6.0 \
-    junitparser==2.4.2 \
-    six \
-    tornado \
-    pytest-lazy-fixture
+cd $(dirname $0)/python
+poetry config cache-dir /tmp/poetry-cache
+poetry config virtualenvs.path /virtualenv
+
+poetry install --no-root "$@"
+VENV_ROOT=$(ls -d1 /virtualenv/apache-tvm-*-py3.7)
+ln -s "${VENV_ROOT}" /virtualenv/apache-tvm-py3.7
