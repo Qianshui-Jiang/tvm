@@ -281,7 +281,7 @@ def conv2d_nchw_mkldnn(cfg, data, kernel, strides, padding, dilation, out_dtype)
 @autotvm.register_topi_schedule("conv2d_nchw_mkldnn.x86")
 def schedule_conv2d_nchw_mkldnn(_, outs):
     """Create schedule for conv2d_nchw_mkldnn"""
-    return generic.schedule_extern(outs)
+    return schedule_extern(outs)
 
 
 @autotvm.register_topi_compute("conv2d_nhwc_mkldnn.x86")
@@ -295,7 +295,7 @@ def conv2d_nhwc_mkldnn(cfg, data, kernel, strides, padding, dilation, out_dtype)
 @autotvm.register_topi_schedule("conv2d_nhwc_mkldnn.x86")
 def schedule_conv2d_nhwc_mkldnn(_, outs):
     """Create schedule for conv2d_nhwc_mkldnn"""
-    return generic.schedule_extern(outs)
+    return schedule_extern(outs)
 
 
 @autotvm.register_topi_compute("conv2d_nchw_dnnl.x86")
